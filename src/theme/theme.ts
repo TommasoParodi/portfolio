@@ -4,22 +4,22 @@ export const theme = createTheme({
   palette: {
     mode: "dark",
     primary: {
-      main: "#ff9800", // Orange accent color
-      light: "#ffb74d",
-      dark: "#f57c00",
+      main: "#FF6B35", // Modern vibrant orange
+      light: "#FF8C65",
+      dark: "#E55A2B",
     },
     secondary: {
-      main: "#ff5722", // Deep orange accent color
-      light: "#ff8a65",
-      dark: "#d84315",
+      main: "#00BCD4", // Cyan accent that complements orange
+      light: "#4DD0E1",
+      dark: "#0097A7",
     },
     background: {
-      default: "#263238", // Anthracite gray background
-      paper: "#37474f", // Slightly lighter for cards
+      default: "#0D1117", // Deep dark background (GitHub-inspired)
+      paper: "#161B22", // Card background with subtle elevation
     },
     text: {
-      primary: "#ffffff",
-      secondary: "#b0bec5",
+      primary: "#F0F6FC", // Soft white for better readability
+      secondary: "#8B949E", // Muted gray for secondary text
     },
   },
   typography: {
@@ -74,17 +74,17 @@ export const theme = createTheme({
           padding: "12px 24px",
         },
         contained: {
-          backgroundColor: "#ff9800",
+          backgroundColor: "#FF6B35",
           "&:hover": {
-            backgroundColor: "#ffb74d",
+            backgroundColor: "#FF8C65",
           },
         },
         outlined: {
-          borderColor: "#ff9800",
-          color: "#ff9800",
+          borderColor: "#FF6B35",
+          color: "#FF6B35",
           "&:hover": {
-            borderColor: "#ffb74d",
-            backgroundColor: "rgba(255, 152, 0, 0.1)",
+            borderColor: "#FF8C65",
+            backgroundColor: "rgba(255, 107, 53, 0.1)",
           },
         },
       },
@@ -92,11 +92,12 @@ export const theme = createTheme({
     MuiCard: {
       styleOverrides: {
         root: {
-          backgroundColor: "#37474f",
+          backgroundColor: "#161B22",
           borderRadius: "12px",
-          border: "1px solid rgba(255, 255, 255, 0.1)",
+          border: "1px solid rgba(240, 246, 252, 0.1)",
           "&:hover": {
-            borderColor: "rgba(255, 152, 0, 0.3)",
+            borderColor: "rgba(255, 107, 53, 0.4)",
+            boxShadow: "0 4px 12px rgba(255, 107, 53, 0.15)",
           },
         },
       },
@@ -108,10 +109,11 @@ export const theme = createTheme({
           fontWeight: 500,
         },
         outlined: {
-          borderColor: "#ff9800",
-          color: "#ff9800",
+          borderColor: "#FF6B35",
+          color: "#FF6B35",
           "&:hover": {
-            backgroundColor: "rgba(255, 152, 0, 0.1)",
+            backgroundColor: "rgba(255, 107, 53, 0.15)",
+            borderColor: "#FF8C65",
           },
         },
       },

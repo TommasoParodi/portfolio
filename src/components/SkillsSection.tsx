@@ -25,7 +25,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills }) => {
               fontSize: "0.875rem",
               fontWeight: 500,
               "&:hover": {
-                backgroundColor: "rgba(0, 188, 212, 0.1)",
+                backgroundColor: "rgba(255, 107, 53, 0.15)",
                 transform: "scale(1.05)",
               },
               transition: "all 0.2s ease",

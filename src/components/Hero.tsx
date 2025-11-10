@@ -14,13 +14,13 @@ const Hero: React.FC = () => {
         variant="h1"
         sx={{
           mb: 2,
-          background: "linear-gradient(45deg, #ffffff, #ff9800)",
+          background: "linear-gradient(45deg, #ffffff, #FF6B35)",
           backgroundClip: "text",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
         }}
       >
-        Mario Rossi
+        Tommaso Parodi
       </Typography>
 
       <Typography
@@ -31,7 +31,7 @@ const Hero: React.FC = () => {
           fontWeight: 500,
         }}
       >
-        Sviluppatore Web Full-Stack
+        Front End Developer
       </Typography>
 
       <Typography
@@ -44,9 +44,10 @@ const Hero: React.FC = () => {
           lineHeight: 1.7,
         }}
       >
-        Sono un appassionato sviluppatore web con una forte specializzazione in
-        React e Material-UI. Il mio obiettivo è creare applicazioni web
-        performanti, intuitive e dal design moderno.
+        I'm a passionate front-end developer specializing in React and
+        Material-UI. I love crafting high-performance, intuitive web
+        applications with modern, elegant designs that deliver exceptional user
+        experiences.
       </Typography>
 
       <Stack
@@ -63,7 +64,7 @@ const Hero: React.FC = () => {
             py: 1.5,
           }}
         >
-          Vedi i miei Progetti
+          View My Projects
         </Button>
         <Button
           variant="contained"
@@ -73,7 +74,7 @@ const Hero: React.FC = () => {
             py: 1.5,
           }}
         >
-          Contattami
+          Contact Me
         </Button>
       </Stack>
     </Box>

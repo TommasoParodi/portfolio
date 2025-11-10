@@ -7,47 +7,63 @@ import EducationCard from "../components/EducationCard";
 import SkillsSection from "../components/SkillsSection";
 
 const HomePage: React.FC = () => {
-  // Dati hardcoded per le esperienze lavorative
+  // Hardcoded data for work experiences
   const experiences = [
     {
-      logo: "/api/placeholder/80/80", // Placeholder per ora
-      ruolo: "Sviluppatore Frontend",
-      azienda: "Tech Solutions Inc.",
-      descrizione:
-        "Ho lavorato allo sviluppo di interfacce utente per una piattaforma di e-commerce utilizzando React e Redux. Ho contribuito a migliorare le performance del sito del 20%.",
-      periodo: "2022 - Presente",
+      logo: "/api/placeholder/80/80", // Placeholder for now
+      role: "Frontend Developer",
+      company: "ERMIT",
+      description:
+        "Developed responsive front-end applications using Angular and integrated RESTful APIs and WebSocket services. Built an AI-powered chatbot with React and Langchain. Contributed to bug fixing, performance optimization, and UI/UX improvements. Participated in agile processes and created reusable components.",
+      period: "Mar 2024 - Present",
     },
     {
-      logo: "/api/placeholder/80/80", // Placeholder per ora
-      ruolo: "Junior Web Developer",
-      azienda: "Web Agency Creativa",
-      descrizione:
-        "Ho collaborato alla creazione di siti web per clienti di diversi settori, utilizzando HTML, CSS e JavaScript. Ho imparato le basi del responsive design e del lavoro in team.",
-      periodo: "2021 - 2022",
+      logo: "/api/placeholder/80/80", // Placeholder for now
+      role: "Machine Learning Engineer",
+      company: "ENGIE",
+      description:
+        "Developed machine learning models for data validation on gas storage sites. Conducted data analysis to identify inconsistencies in large datasets. Automated validation processes, improving efficiency and reducing measurement errors. Documented models and processes for reproducibility.",
+      period: "Feb 2023 - Aug 2023",
     },
   ];
 
-  // Dati hardcoded per la formazione
-  const education = {
-    titolo: "Laurea in Informatica",
-    istituzione: "Università degli Studi",
-    periodo: "2018 - 2021",
-  };
+  // Hardcoded data for education
+  const education = [
+    {
+      title: "Master's degree in Machine Learning and Optimization of Complex Systems",
+      institution: "Université de Technologie de Compiègne (France)",
+      period: "2022 - 2023",
+    },
+    {
+      title: "Master's degree in Computer Engineering, Artificial Intelligence and Human-centered computing",
+      institution: "Università degli studi di Genova (Italy)",
+      period: "2021 - 2024",
+    },
+    {
+      title: "Bachelor's Degree in Computer Engineering",
+      institution: "Università degli studi di Genova (Italy)",
+      period: "2018 - 2021",
+    },
+  ];
 
-  // Dati hardcoded per le competenze
+  // Hardcoded data for skills
   const skills = [
+    "Angular",
     "React",
-    "Node.js",
-    "Material-UI",
+    "HTML",
+    "CSS",
     "JavaScript",
-    "HTML5",
-    "CSS3",
-    "Git",
     "TypeScript",
-    "Redux",
-    "Express.js",
-    "MongoDB",
-    "PostgreSQL",
+    "NextJS",
+    "NestJS",
+    "LangchainJS",
+    "NodeJS",
+    "ExpressJS",
+    "SQL",
+    "Python",
+    "C++",
+    "PHP",
+    "Docker",
   ];
 
   return (
@@ -55,7 +71,7 @@ const HomePage: React.FC = () => {
       <Hero />
 
       <Grid container spacing={4} sx={{ mt: 2 }}>
-        {/* Colonna sinistra - Esperienze Lavorative */}
+        {/* Left column - Work Experience */}
         <Grid size={{ xs: 12, md: 7 }}>
           <Typography
             variant="h4"
@@ -65,25 +81,22 @@ const HomePage: React.FC = () => {
               fontWeight: 600,
             }}
           >
-            Esperienze Lavorative
+            Work Experience
           </Typography>
 
           {experiences.map((experience, index) => (
             <ExperienceCard
               key={index}
               logo={experience.logo}
-              ruolo={experience.ruolo}
-              azienda={experience.azienda}
-              descrizione={experience.descrizione}
-              periodo={experience.periodo}
+              role={experience.role}
+              company={experience.company}
+              description={experience.description}
+              period={experience.period}
             />
           ))}
-        </Grid>
 
-        {/* Colonna destra - Formazione e Competenze */}
-        <Grid size={{ xs: 12, md: 5 }}>
-          {/* Sezione Formazione */}
-          <Box sx={{ mb: 4 }}>
+          {/* Key Skills Section */}
+          <Box sx={{ mt: 4 }}>
             <Typography
               variant="h4"
               sx={{
@@ -92,17 +105,16 @@ const HomePage: React.FC = () => {
                 fontWeight: 600,
               }}
             >
-              Formazione
+              Key Skills
             </Typography>
 
-            <EducationCard
-              titolo={education.titolo}
-              istituzione={education.istituzione}
-              periodo={education.periodo}
-            />
+            <SkillsSection skills={skills} />
           </Box>
+        </Grid>
 
-          {/* Sezione Competenze Chiave */}
+        {/* Right column - Education */}
+        <Grid size={{ xs: 12, md: 5 }}>
+          {/* Education Section */}
           <Box>
             <Typography
               variant="h4"
@@ -112,10 +124,17 @@ const HomePage: React.FC = () => {
                 fontWeight: 600,
               }}
             >
-              Competenze Chiave
+              Education
             </Typography>
 
-            <SkillsSection skills={skills} />
+            {education.map((edu, index) => (
+              <EducationCard
+                key={index}
+                title={edu.title}
+                institution={edu.institution}
+                period={edu.period}
+              />
+            ))}
           </Box>
         </Grid>
       </Grid>

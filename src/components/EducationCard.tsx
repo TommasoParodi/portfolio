@@ -2,15 +2,15 @@ import React from "react";
 import { Card, CardContent, Typography } from "@mui/material";
 
 interface EducationCardProps {
-  titolo: string;
-  istituzione: string;
-  periodo: string;
+  title: string;
+  institution: string;
+  period: string;
 }
 
 const EducationCard: React.FC<EducationCardProps> = ({
-  titolo,
-  istituzione,
-  periodo,
+  title,
+  institution,
+  period,
 }) => {
   return (
     <Card
@@ -20,7 +20,7 @@ const EducationCard: React.FC<EducationCardProps> = ({
         transition: "all 0.3s ease",
         "&:hover": {
           transform: "translateY(-2px)",
-          boxShadow: "0 8px 25px rgba(255, 152, 0, 0.15)",
+          boxShadow: "0 8px 25px rgba(255, 107, 53, 0.2)",
         },
       }}
     >
@@ -33,7 +33,7 @@ const EducationCard: React.FC<EducationCardProps> = ({
             mb: 1,
           }}
         >
-          {titolo}
+          {title}
         </Typography>
         <Typography
           variant="subtitle1"
@@ -43,7 +43,7 @@ const EducationCard: React.FC<EducationCardProps> = ({
             mb: 1,
           }}
         >
-          {istituzione}
+          {institution}
         </Typography>
         <Typography
           variant="body2"
@@ -51,7 +51,7 @@ const EducationCard: React.FC<EducationCardProps> = ({
             color: "text.secondary",
           }}
         >
-          {periodo}
+          {period}
         </Typography>
       </CardContent>
     </Card>
