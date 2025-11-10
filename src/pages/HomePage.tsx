@@ -67,10 +67,10 @@ const HomePage: React.FC = () => {
   ];
 
   return (
-    <Container maxWidth="lg">
+    <>
       <Hero />
-
-      <Grid container spacing={4} sx={{ mt: 2 }}>
+      <Container maxWidth="lg">
+        <Grid container spacing={4} sx={{ mt: 2 }}>
         {/* Left column - Work Experience */}
         <Grid size={{ xs: 12, md: 7 }}>
           <Typography
@@ -138,7 +138,8 @@ const HomePage: React.FC = () => {
           </Box>
         </Grid>
       </Grid>
-    </Container>
+      </Container>
+    </>
   );
 };
 
