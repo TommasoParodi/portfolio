@@ -1,21 +1,26 @@
 import React from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Link } from "@mui/material";
+import { GitHub, Launch } from "@mui/icons-material";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
-interface EducationCardProps {
-  title: string;
-  institution: string;
-  period: string;
+interface ProjectCardProps {
+  name: string;
+  description: string;
+  github: string;
+  deploy: string | null;
+  languages: string[];
+  index: number;
   isLast?: boolean;
-  index?: number;
 }
 
-const EducationCard: React.FC<EducationCardProps> = ({
-  title,
-  institution,
-  period,
+const ProjectCard: React.FC<ProjectCardProps> = ({
+  name,
+  description,
+  github,
+  deploy,
+  languages,
+  index,
   isLast = false,
-  index = 0,
 }) => {
   const { elementRef, isVisible } = useScrollAnimation({
     threshold: 0.2,
@@ -42,11 +47,11 @@ const EducationCard: React.FC<EducationCardProps> = ({
           backgroundColor: "rgba(255, 107, 53, 0.9)",
           borderColor: "rgba(255, 180, 140, 0.9)",
         },
-        "&:hover .timeline-title": {
+        "&:hover .project-title": {
           color: "text.primary",
         },
-        "&:hover .timeline-period": {
-          color: "primary.main",
+        "&:hover .project-links": {
+          opacity: 1,
         },
       }}
     >
@@ -100,11 +105,12 @@ const EducationCard: React.FC<EducationCardProps> = ({
             justifyContent: "space-between",
             alignItems: { xs: "flex-start", sm: "center" },
             gap: 1,
+            mb: 1.5,
           }}
         >
           <Box>
             <Typography
-              className="timeline-title"
+              className="project-title"
               variant="subtitle1"
               sx={{
                 fontWeight: 600,
@@ -112,34 +118,89 @@ const EducationCard: React.FC<EducationCardProps> = ({
                 transition: "color 0.4s cubic-bezier(0.43, 0.13, 0.23, 0.96)",
               }}
             >
-              {title}
+              {name}
             </Typography>
-            <Typography
-              variant="body2"
+            <Box
+              className="project-links"
               sx={{
-                color: "text.secondary",
+                display: "flex",
+                gap: 1,
+                mt: 0.5,
+                opacity: 0.7,
+                transition: "opacity 0.4s cubic-bezier(0.43, 0.13, 0.23, 0.96)",
               }}
             >
-              {institution}
-            </Typography>
+              <Link
+                href={github}
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{
+                  color: "text.secondary",
+                  transition: "color 0.3s ease",
+                  "&:hover": {
+                    color: "primary.main",
+                  },
+                }}
+              >
+                <GitHub fontSize="small" />
+              </Link>
+              {deploy && (
+                <Link
+                  href={deploy}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    color: "text.secondary",
+                    transition: "color 0.3s ease",
+                    "&:hover": {
+                      color: "secondary.main",
+                    },
+                  }}
+                >
+                  <Launch fontSize="small" />
+                </Link>
+              )}
+            </Box>
           </Box>
 
-          <Typography
-            className="timeline-period"
-            variant="caption"
+          <Box
             sx={{
-              color: "rgba(255, 255, 255, 0.5)",
-              letterSpacing: 0.6,
-              textTransform: "uppercase",
-              transition: "color 0.25s ease",
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 0.5,
+              maxWidth: { xs: "100%", sm: "200px" },
             }}
           >
-            {period}
-          </Typography>
+            {languages.map((lang, idx) => (
+              <Typography
+                key={idx}
+                variant="caption"
+                sx={{
+                  color: "rgba(255, 255, 255, 0.5)",
+                  fontSize: "0.7rem",
+                }}
+              >
+                {lang}
+                {idx < languages.length - 1 && " •"}
+              </Typography>
+            ))}
+          </Box>
         </Box>
+
+        <Typography
+          variant="body2"
+          sx={{
+            color: "rgba(255, 255, 255, 0.68)",
+            lineHeight: 1.8,
+            transition: "color 0.4s cubic-bezier(0.43, 0.13, 0.23, 0.96)",
+          }}
+        >
+          {description}
+        </Typography>
       </Box>
     </Box>
   );
 };
 
-export default EducationCard;
+export default ProjectCard;
+

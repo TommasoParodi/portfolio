@@ -1,16 +1,39 @@
 import React from "react";
 import { Container, Typography, Box } from "@mui/material";
-import Grid from "@mui/material/Grid";
 import Hero from "../components/Hero";
 import ExperienceCard from "../components/ExperienceCard";
 import EducationCard from "../components/EducationCard";
 import SkillsSection from "../components/SkillsSection";
+import ProjectsSection from "../components/ProjectsSection";
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
+
+const SectionTitle: React.FC<{ title: string }> = ({ title }) => {
+  const { elementRef, isVisible } = useScrollAnimation({
+    threshold: 0.2,
+  });
+
+  return (
+    <Typography
+      ref={elementRef}
+      variant="h4"
+      sx={{
+        mb: 3,
+        color: "text.primary",
+        fontWeight: 600,
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? "translateY(0)" : "translateY(20px)",
+        transition: "all 0.6s cubic-bezier(0.43, 0.13, 0.23, 0.96)",
+      }}
+    >
+      {title}
+    </Typography>
+  );
+};
 
 const HomePage: React.FC = () => {
   // Hardcoded data for work experiences
   const experiences = [
     {
-      logo: "/api/placeholder/80/80", // Placeholder for now
       role: "Frontend Developer",
       company: "ERMIT",
       description:
@@ -18,7 +41,6 @@ const HomePage: React.FC = () => {
       period: "Mar 2024 - Present",
     },
     {
-      logo: "/api/placeholder/80/80", // Placeholder for now
       role: "Machine Learning Engineer",
       company: "ENGIE",
       description:
@@ -69,75 +91,66 @@ const HomePage: React.FC = () => {
   return (
     <>
       <Hero />
-      <Container maxWidth="lg">
-        <Grid container spacing={4} sx={{ mt: 2 }}>
-        {/* Left column - Work Experience */}
-        <Grid size={{ xs: 12, md: 7 }}>
-          <Typography
-            variant="h4"
-            sx={{
-              mb: 3,
-              color: "text.primary",
-              fontWeight: 600,
-            }}
-          >
-            Work Experience
-          </Typography>
+      <Container maxWidth="md" sx={{ mt: 4 }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: {
+              xs: 8,
+              md: 10,
+            },
+          }}
+        >
+          <ProjectsSection />
+        </Box>
+      </Container>
 
-          {experiences.map((experience, index) => (
-            <ExperienceCard
-              key={index}
-              logo={experience.logo}
-              role={experience.role}
-              company={experience.company}
-              description={experience.description}
-              period={experience.period}
-            />
-          ))}
-
-          {/* Key Skills Section */}
-          <Box sx={{ mt: 4 }}>
-            <Typography
-              variant="h4"
-              sx={{
-                mb: 3,
-                color: "text.primary",
-                fontWeight: 600,
-              }}
-            >
-              Key Skills
-            </Typography>
-
-            <SkillsSection skills={skills} />
-          </Box>
-        </Grid>
-
-        {/* Right column - Education */}
-        <Grid size={{ xs: 12, md: 5 }}>
-          {/* Education Section */}
+      <Container maxWidth="md" sx={{ mt: 4 }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: {
+              xs: 8,
+              md: 10,
+            },
+          }}
+        >
           <Box>
-            <Typography
-              variant="h4"
-              sx={{
-                mb: 3,
-                color: "text.primary",
-                fontWeight: 600,
-              }}
-            >
-              Education
-            </Typography>
+            <SectionTitle title="Work Experience" />
+            {experiences.map((experience, index) => (
+              <ExperienceCard
+                key={index}
+                role={experience.role}
+                company={experience.company}
+                description={experience.description}
+                period={experience.period}
+                isLast={index === experiences.length - 1}
+                index={index}
+              />
+            ))}
+          </Box>
 
+          <Box>
+            <SectionTitle title="Education" />
             {education.map((edu, index) => (
               <EducationCard
                 key={index}
                 title={edu.title}
                 institution={edu.institution}
                 period={edu.period}
+                isLast={index === education.length - 1}
+                index={index}
               />
             ))}
           </Box>
-        </Grid>
-      </Grid>
+
+          <Box>
+            <SectionTitle title="Key Skills" />
+            <SkillsSection skills={skills} />
+          </Box>
+        </Box>
       </Container>
     </>
   );

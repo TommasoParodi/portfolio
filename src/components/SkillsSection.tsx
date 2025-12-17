@@ -1,13 +1,18 @@
 import React from "react";
-import { Box, Chip } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
 interface SkillsSectionProps {
   skills: string[];
 }
 
 const SkillsSection: React.FC<SkillsSectionProps> = ({ skills }) => {
+  const { elementRef, isVisible } = useScrollAnimation({
+    threshold: 0.1,
+  });
+
   return (
-    <Box>
+    <Box ref={elementRef}>
       <Box
         sx={{
           display: "flex",
@@ -17,20 +22,34 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills }) => {
         }}
       >
         {skills.map((skill, index) => (
-          <Chip
+          <Typography
             key={index}
-            label={skill}
-            variant="outlined"
+            variant="body2"
             sx={{
-              fontSize: "0.875rem",
-              fontWeight: 500,
+              color: "rgba(255, 255, 255, 0.68)",
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? "translateX(0)" : "translateX(-20px)",
+              transition: `all 0.6s cubic-bezier(0.43, 0.13, 0.23, 0.96) ${
+                index * 0.05
+              }s`,
               "&:hover": {
-                backgroundColor: "rgba(255, 107, 53, 0.15)",
-                transform: "scale(1.05)",
+                color: "primary.main",
               },
-              transition: "all 0.2s ease",
             }}
-          />
+          >
+            {skill}
+            {index < skills.length - 1 && (
+              <Box
+                component="span"
+                sx={{
+                  mx: 1,
+                  color: "rgba(255, 255, 255, 0.3)",
+                }}
+              >
+                •
+              </Box>
+            )}
+          </Typography>
         ))}
       </Box>
     </Box>

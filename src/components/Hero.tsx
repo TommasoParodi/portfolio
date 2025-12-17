@@ -3,8 +3,10 @@ import { Box, Typography, Button, Stack } from "@mui/material";
 
 const Hero: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     const handleScroll = () => {
       if (window.scrollY > 50) {
         setIsScrolled(true);
@@ -43,7 +45,7 @@ const Hero: React.FC = () => {
             radial-gradient(circle at 80% 80%, rgba(0, 188, 212, 0.08) 0%, transparent 50%),
             radial-gradient(circle at 40% 20%, rgba(255, 107, 53, 0.06) 0%, transparent 50%)
           `,
-          animation: "pulse 15s ease-in-out infinite",
+          animation: "pulse 20s ease-in-out infinite",
           zIndex: 0,
         },
         "&::after": {
@@ -62,8 +64,8 @@ const Hero: React.FC = () => {
             transform: "scale(1)",
           },
           "50%": {
-            opacity: 0.8,
-            transform: "scale(1.1)",
+            opacity: 0.9,
+            transform: "scale(1.05)",
           },
         },
       }}
@@ -75,57 +77,82 @@ const Hero: React.FC = () => {
         }}
       >
         <Typography
-        variant="h1"
-        sx={{
-          mb: 2,
-          background: "linear-gradient(45deg, #ffffff, #FF6B35)",
-          backgroundClip: "text",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-        }}
-      >
-        Tommaso Parodi
-      </Typography>
+          variant="h1"
+          sx={{
+            mb: 2,
+            background: "linear-gradient(45deg, #ffffff, #FF6B35)",
+            backgroundClip: "text",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            opacity: isMounted ? 1 : 0,
+            transform: isMounted ? "translateY(0)" : "translateY(-30px)",
+            transition: "all 0.8s cubic-bezier(0.43, 0.13, 0.23, 0.96)",
+          }}
+        >
+          Tommaso Parodi
+        </Typography>
 
-      <Typography
-        variant="h3"
-        sx={{
-          color: "primary.main",
-          mb: 3,
-          fontWeight: 500,
-        }}
-      >
-        Front End Developer
-      </Typography>
+        <Typography
+          variant="h3"
+          sx={{
+            color: "primary.main",
+            mb: 3,
+            fontWeight: 500,
+            opacity: isMounted ? 1 : 0,
+            transform: isMounted ? "translateY(0)" : "translateY(-20px)",
+            transition: "all 0.8s cubic-bezier(0.43, 0.13, 0.23, 0.96) 0.2s",
+          }}
+        >
+          Front End Developer
+        </Typography>
 
-      <Typography
-        variant="body1"
-        sx={{
-          maxWidth: "600px",
-          mx: "auto",
-          mb: 4,
-          fontSize: "1.1rem",
-          lineHeight: 1.7,
-        }}
-      >
-        I'm a passionate front-end developer specializing in React and
-        Material-UI. I love crafting high-performance, intuitive web
-        applications with modern, elegant designs that deliver exceptional user
-        experiences.
-      </Typography>
+        <Typography
+          variant="body1"
+          sx={{
+            maxWidth: "600px",
+            mx: "auto",
+            mb: 4,
+            fontSize: "1.1rem",
+            lineHeight: 1.7,
+            opacity: isMounted ? 1 : 0,
+            transform: isMounted ? "translateY(0)" : "translateY(20px)",
+            transition: "all 0.8s cubic-bezier(0.43, 0.13, 0.23, 0.96) 0.4s",
+          }}
+        >
+          I'm a passionate front-end developer specializing in React and
+          Material-UI. I love crafting high-performance, intuitive web
+          applications with modern, elegant designs that deliver exceptional user
+          experiences.
+        </Typography>
 
         <Stack
           direction={{ xs: "column", sm: "row" }}
           spacing={2}
           justifyContent="center"
-          sx={{ mt: 4 }}
+          sx={{
+            mt: 4,
+            opacity: isMounted ? 1 : 0,
+            transform: isMounted ? "translateY(0)" : "translateY(20px)",
+            transition: "all 0.8s cubic-bezier(0.43, 0.13, 0.23, 0.96) 0.6s",
+          }}
         >
           <Button
             variant="outlined"
             size="large"
+            onClick={() => {
+              const projectsSection = document.querySelector(
+                '[data-section="projects"]'
+              );
+              projectsSection?.scrollIntoView({ behavior: "smooth" });
+            }}
             sx={{
               minWidth: "200px",
               py: 1.5,
+            transition: "all 0.4s cubic-bezier(0.43, 0.13, 0.23, 0.96)",
+            "&:hover": {
+              transform: "translateY(-4px)",
+              boxShadow: "0 8px 24px rgba(255, 107, 53, 0.35)",
+            },
             }}
           >
             View My Projects
@@ -139,6 +166,11 @@ const Hero: React.FC = () => {
               minWidth: "200px",
               py: 1.5,
               textDecoration: "none",
+              transition: "all 0.4s cubic-bezier(0.43, 0.13, 0.23, 0.96)",
+              "&:hover": {
+                transform: "translateY(-4px)",
+                boxShadow: "0 8px 24px rgba(255, 107, 53, 0.45)",
+              },
             }}
           >
             Contact Me

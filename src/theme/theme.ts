@@ -72,11 +72,14 @@ export const theme = createTheme({
           textTransform: "none",
           fontWeight: 500,
           padding: "12px 24px",
+          transition: "all 0.3s cubic-bezier(0.43, 0.13, 0.23, 0.96)",
         },
         contained: {
           backgroundColor: "#FF6B35",
           "&:hover": {
             backgroundColor: "#FF8C65",
+            transform: "translateY(-2px)",
+            boxShadow: "0 6px 20px rgba(255, 107, 53, 0.4)",
           },
         },
         outlined: {
@@ -85,6 +88,7 @@ export const theme = createTheme({
           "&:hover": {
             borderColor: "#FF8C65",
             backgroundColor: "rgba(255, 107, 53, 0.1)",
+            transform: "translateY(-2px)",
           },
         },
       },
@@ -95,9 +99,11 @@ export const theme = createTheme({
           backgroundColor: "#161B22",
           borderRadius: "12px",
           border: "1px solid rgba(240, 246, 252, 0.1)",
+          transition: "all 0.4s cubic-bezier(0.43, 0.13, 0.23, 0.96)",
           "&:hover": {
             borderColor: "rgba(255, 107, 53, 0.4)",
             boxShadow: "0 4px 12px rgba(255, 107, 53, 0.15)",
+            transform: "translateY(-4px)",
           },
         },
       },
@@ -107,6 +113,7 @@ export const theme = createTheme({
         root: {
           borderRadius: "20px",
           fontWeight: 500,
+          transition: "all 0.3s cubic-bezier(0.43, 0.13, 0.23, 0.96)",
         },
         outlined: {
           borderColor: "#FF6B35",
@@ -114,6 +121,7 @@ export const theme = createTheme({
           "&:hover": {
             backgroundColor: "rgba(255, 107, 53, 0.15)",
             borderColor: "#FF8C65",
+            transform: "translateY(-2px) scale(1.05)",
           },
         },
       },
@@ -125,6 +133,30 @@ export const theme = createTheme({
           paddingBottom: "2rem",
         },
       },
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          transition: "all 0.3s cubic-bezier(0.43, 0.13, 0.23, 0.96)",
+        },
+      },
+    },
+  },
+  transitions: {
+    easing: {
+      easeInOut: "cubic-bezier(0.43, 0.13, 0.23, 0.96)",
+      easeOut: "cubic-bezier(0.43, 0.13, 0.23, 0.96)",
+      easeIn: "cubic-bezier(0.43, 0.13, 0.23, 0.96)",
+      sharp: "cubic-bezier(0.4, 0, 0.6, 1)",
+    },
+    duration: {
+      shortest: 150,
+      shorter: 200,
+      short: 250,
+      standard: 300,
+      complex: 375,
+      enteringScreen: 225,
+      leavingScreen: 195,
     },
   },
   breakpoints: {
