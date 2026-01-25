@@ -1,7 +1,9 @@
 import React from "react";
 import { Box, Typography, Link } from "@mui/material";
 import { GitHub, Launch } from "@mui/icons-material";
-import { useScrollAnimation } from "../hooks/useScrollAnimation";
+import { alpha, useTheme } from "@mui/material/styles";
+import { motion, useReducedMotion } from "framer-motion";
+import { fadeUp } from "../utils/motion";
 
 interface ProjectCardProps {
   name: string;
@@ -22,30 +24,27 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   index,
   isLast = false,
 }) => {
-  const { elementRef, isVisible } = useScrollAnimation({
-    threshold: 0.2,
-    rootMargin: "0px",
-  });
+  const theme = useTheme();
+  const reduceMotion = useReducedMotion();
 
   return (
     <Box
-      ref={elementRef}
+      component={motion.div}
       className="timeline-card"
+      variants={reduceMotion ? undefined : fadeUp(index * 0.06)}
+      initial={reduceMotion ? undefined : "hidden"}
+      whileInView={reduceMotion ? undefined : "visible"}
+      viewport={reduceMotion ? undefined : { once: true, amount: 0.3 }}
       sx={{
         display: "flex",
         gap: 2.5,
         pb: isLast ? 0 : 3.5,
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? "translateX(0)" : "translateX(-30px)",
-        transition: `all 0.6s cubic-bezier(0.43, 0.13, 0.23, 0.96) ${index * 0.15}s`,
-        transitionProperty: "color, box-shadow, opacity, transform",
-        "&:hover .timeline-content": {
-          transform: "translateX(4px)",
-        },
+        borderRadius: 3,
+        px: 0.5,
         "&:hover .timeline-node": {
-          boxShadow: "0 0 24px rgba(255, 107, 53, 0.95)",
-          backgroundColor: "rgba(255, 107, 53, 0.9)",
-          borderColor: "rgba(255, 180, 140, 0.9)",
+          boxShadow: `0 0 36px ${alpha(theme.palette.primary.main, 0.65)}`,
+          backgroundColor: alpha(theme.palette.primary.main, 0.85),
+          borderColor: alpha(theme.palette.primary.light, 0.85),
         },
         "&:hover .project-title": {
           color: "text.primary",
@@ -69,9 +68,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             width: 14,
             height: 14,
             borderRadius: "50%",
-            border: "2px solid rgba(255, 107, 53, 0.65)",
-            backgroundColor: "rgba(255, 107, 53, 0.25)",
-            boxShadow: "0 0 10px rgba(255, 107, 53, 0.35)",
+            border: `2px solid ${alpha(theme.palette.primary.main, 0.55)}`,
+            backgroundColor: alpha(theme.palette.primary.main, 0.22),
+            boxShadow: `0 0 14px ${alpha(theme.palette.primary.main, 0.25)}`,
             zIndex: 1,
             mt: 0.5,
             transition: "all 0.4s cubic-bezier(0.43, 0.13, 0.23, 0.96)",
@@ -84,7 +83,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
               top: 16,
               bottom: -28,
               width: 2,
-              background: "rgba(255, 107, 53, 0.45)",
+              background: alpha(theme.palette.primary.main, 0.42),
             }}
           />
         )}
@@ -114,7 +113,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
               variant="subtitle1"
               sx={{
                 fontWeight: 600,
-                color: "rgba(255, 255, 255, 0.75)",
+                color: alpha(theme.palette.text.primary, 0.78),
                 transition: "color 0.4s cubic-bezier(0.43, 0.13, 0.23, 0.96)",
               }}
             >
@@ -176,7 +175,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                 key={idx}
                 variant="caption"
                 sx={{
-                  color: "rgba(255, 255, 255, 0.5)",
+                  color: alpha(theme.palette.text.primary, 0.55),
                   fontSize: "0.7rem",
                 }}
               >
@@ -190,7 +189,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         <Typography
           variant="body2"
           sx={{
-            color: "rgba(255, 255, 255, 0.68)",
+            color: alpha(theme.palette.text.primary, 0.72),
             lineHeight: 1.8,
             transition: "color 0.4s cubic-bezier(0.43, 0.13, 0.23, 0.96)",
           }}

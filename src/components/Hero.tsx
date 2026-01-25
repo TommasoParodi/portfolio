@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Typography, Button, Stack } from "@mui/material";
+import { alpha, useTheme } from "@mui/material/styles";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { fadeUp, fadeIn, tapPress } from "../utils/motion";
 
 const Hero: React.FC = () => {
+  const theme = useTheme();
+  const reduceMotion = useReducedMotion();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true);
     const handleScroll = () => {
       if (window.scrollY > 50) {
         setIsScrolled(true);
@@ -19,8 +22,13 @@ const Hero: React.FC = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const { scrollY } = useScroll();
+  const orbY = useTransform(scrollY, [0, 450], [0, reduceMotion ? 0 : -32]);
+  const orbX = useTransform(scrollY, [0, 450], [0, reduceMotion ? 0 : 18]);
+
   return (
     <Box
+      component={motion.section}
       sx={{
         position: "relative",
         width: "100vw",
@@ -33,80 +41,81 @@ const Hero: React.FC = () => {
         px: 2,
         overflow: "hidden",
         marginLeft: "calc(-50vw + 50%)",
-        "&::before": {
-          content: '""',
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: `
-            radial-gradient(circle at 20% 50%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 80% 80%, rgba(0, 188, 212, 0.08) 0%, transparent 50%),
-            radial-gradient(circle at 40% 20%, rgba(255, 107, 53, 0.06) 0%, transparent 50%)
-          `,
-          animation: "pulse 20s ease-in-out infinite",
-          zIndex: 0,
-        },
         "&::after": {
           content: '""',
           position: "absolute",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: "30%",
-          background: "linear-gradient(to bottom, transparent 0%, #0D1117 100%)",
+          inset: 0,
+          background: `radial-gradient(700px 500px at 50% 40%, ${alpha(
+            theme.palette.primary.main,
+            theme.palette.mode === "dark" ? 0.16 : 0.12
+          )} 0%, transparent 60%)`,
           zIndex: 0,
-        },
-        "@keyframes pulse": {
-          "0%, 100%": {
-            opacity: 1,
-            transform: "scale(1)",
-          },
-          "50%": {
-            opacity: 0.9,
-            transform: "scale(1.05)",
-          },
+          pointerEvents: "none",
         },
       }}
     >
+      {/* Decorative orb (parallax) */}
       <Box
+        component={motion.div}
+        style={{ x: orbX, y: orbY }}
+        sx={{
+          position: "absolute",
+          top: { xs: 90, md: 110 },
+          left: { xs: "14%", md: "18%" },
+          width: { xs: 160, md: 220 },
+          height: { xs: 160, md: 220 },
+          borderRadius: 999,
+          background: `radial-gradient(circle at 30% 30%, ${alpha(
+            theme.palette.secondary.main,
+            theme.palette.mode === "dark" ? 0.42 : 0.28
+          )}, transparent 60%)`,
+          filter: "blur(2px)",
+          opacity: theme.palette.mode === "dark" ? 0.8 : 0.7,
+          zIndex: 0,
+        }}
+      />
+
+      <Box
+        component={motion.div}
+        initial="hidden"
+        animate="visible"
         sx={{
           position: "relative",
           zIndex: 1,
+          maxWidth: 920,
         }}
       >
         <Typography
+          component={motion.h1}
+          variants={fadeUp(0)}
           variant="h1"
           sx={{
             mb: 2,
-            background: "linear-gradient(45deg, #ffffff, #FF6B35)",
+            background: `linear-gradient(90deg, ${theme.palette.text.primary}, ${theme.palette.primary.main})`,
             backgroundClip: "text",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
-            opacity: isMounted ? 1 : 0,
-            transform: isMounted ? "translateY(0)" : "translateY(-30px)",
-            transition: "all 0.8s cubic-bezier(0.43, 0.13, 0.23, 0.96)",
           }}
         >
           Tommaso Parodi
         </Typography>
 
         <Typography
+          component={motion.h2}
+          variants={fadeUp(0.12)}
           variant="h3"
           sx={{
-            color: "primary.main",
+            color: theme.palette.mode === "dark" ? "primary.main" : "text.primary",
             mb: 3,
             fontWeight: 500,
-            opacity: isMounted ? 1 : 0,
-            transform: isMounted ? "translateY(0)" : "translateY(-20px)",
-            transition: "all 0.8s cubic-bezier(0.43, 0.13, 0.23, 0.96) 0.2s",
           }}
         >
-          Front End Developer
+          Frontend Developer
         </Typography>
 
         <Typography
+          component={motion.p}
+          variants={fadeUp(0.22)}
           variant="body1"
           sx={{
             maxWidth: "600px",
@@ -114,9 +123,7 @@ const Hero: React.FC = () => {
             mb: 4,
             fontSize: "1.1rem",
             lineHeight: 1.7,
-            opacity: isMounted ? 1 : 0,
-            transform: isMounted ? "translateY(0)" : "translateY(20px)",
-            transition: "all 0.8s cubic-bezier(0.43, 0.13, 0.23, 0.96) 0.4s",
+            color: alpha(theme.palette.text.primary, theme.palette.mode === "dark" ? 0.78 : 0.85),
           }}
         >
           I'm a passionate front-end developer specializing in React and
@@ -126,60 +133,66 @@ const Hero: React.FC = () => {
         </Typography>
 
         <Stack
+          component={motion.div}
+          variants={fadeIn(0.32)}
           direction={{ xs: "column", sm: "row" }}
           spacing={2}
           justifyContent="center"
           sx={{
             mt: 4,
-            opacity: isMounted ? 1 : 0,
-            transform: isMounted ? "translateY(0)" : "translateY(20px)",
-            transition: "all 0.8s cubic-bezier(0.43, 0.13, 0.23, 0.96) 0.6s",
           }}
         >
-          <Button
-            variant="outlined"
-            size="large"
-            onClick={() => {
-              const projectsSection = document.querySelector(
-                '[data-section="projects"]'
-              );
-              projectsSection?.scrollIntoView({ behavior: "smooth" });
-            }}
-            sx={{
-              minWidth: "200px",
-              py: 1.5,
-            transition: "all 0.4s cubic-bezier(0.43, 0.13, 0.23, 0.96)",
-            "&:hover": {
-              transform: "translateY(-4px)",
-              boxShadow: "0 8px 24px rgba(255, 107, 53, 0.35)",
-            },
-            }}
+          <Box
+            component={motion.div}
+            variants={tapPress}
+            whileTap="tap"
+            sx={{ display: "inline-block" }}
           >
-            View My Projects
-          </Button>
-          <Button
-            variant="contained"
-            size="large"
-            component="a"
-            href="mailto:tommasoparodi99@gmail.com"
-            sx={{
-              minWidth: "200px",
-              py: 1.5,
-              textDecoration: "none",
-              transition: "all 0.4s cubic-bezier(0.43, 0.13, 0.23, 0.96)",
-              "&:hover": {
-                transform: "translateY(-4px)",
-                boxShadow: "0 8px 24px rgba(255, 107, 53, 0.45)",
-              },
-            }}
+            <Button
+              variant="outlined"
+              size="large"
+              onClick={() => {
+                const projectsSection = document.querySelector(
+                  '[data-section="projects"]'
+                );
+                projectsSection?.scrollIntoView({ behavior: "smooth" });
+              }}
+              sx={{
+                minWidth: "200px",
+                py: 1.5,
+                boxShadow: `0 14px 50px ${alpha(theme.palette.primary.main, 0.16)}`,
+              }}
+            >
+              View My Projects
+            </Button>
+          </Box>
+          <Box
+            component={motion.div}
+            variants={tapPress}
+            whileTap="tap"
+            sx={{ display: "inline-block" }}
           >
-            Contact Me
-          </Button>
+            <Button
+              variant="contained"
+              size="large"
+              component="a"
+              href="mailto:tommasoparodi99@gmail.com"
+              sx={{
+                minWidth: "200px",
+                py: 1.5,
+                textDecoration: "none",
+                boxShadow: `0 18px 60px ${alpha(theme.palette.primary.main, 0.22)}`,
+              }}
+            >
+              Contact Me
+            </Button>
+          </Box>
         </Stack>
       </Box>
 
       {/* Scroll Indicator */}
       <Box
+        component={motion.div}
         sx={{
           position: "absolute",
           bottom: "40px",
@@ -189,16 +202,15 @@ const Hero: React.FC = () => {
           opacity: isScrolled ? 0 : 1,
           transition: "opacity 0.3s ease-out",
           pointerEvents: isScrolled ? "none" : "auto",
-          animation: isScrolled ? "none" : "bounce 2s infinite",
-          "@keyframes bounce": {
-            "0%, 100%": {
-              transform: "translateX(-50%) translateY(0)",
-            },
-            "50%": {
-              transform: "translateX(-50%) translateY(10px)",
-            },
-          },
         }}
+        animate={
+          reduceMotion || isScrolled
+            ? undefined
+            : { y: [0, 10, 0], x: "-50%" }
+        }
+        transition={
+          reduceMotion || isScrolled ? undefined : { duration: 2.0, repeat: Infinity, ease: "easeInOut" }
+        }
       >
         <Box
           sx={{

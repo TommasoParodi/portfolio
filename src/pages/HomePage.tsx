@@ -5,24 +5,24 @@ import ExperienceCard from "../components/ExperienceCard";
 import EducationCard from "../components/EducationCard";
 import SkillsSection from "../components/SkillsSection";
 import ProjectsSection from "../components/ProjectsSection";
-import { useScrollAnimation } from "../hooks/useScrollAnimation";
+import { motion, useReducedMotion } from "framer-motion";
+import { fadeUp } from "../utils/motion";
 
 const SectionTitle: React.FC<{ title: string }> = ({ title }) => {
-  const { elementRef, isVisible } = useScrollAnimation({
-    threshold: 0.2,
-  });
+  const reduceMotion = useReducedMotion();
 
   return (
     <Typography
-      ref={elementRef}
+      component={motion.h3}
       variant="h4"
+      initial={reduceMotion ? undefined : "hidden"}
+      whileInView={reduceMotion ? undefined : "visible"}
+      viewport={reduceMotion ? undefined : { once: true, amount: 0.3 }}
+      variants={reduceMotion ? undefined : fadeUp(0)}
       sx={{
         mb: 3,
         color: "text.primary",
         fontWeight: 600,
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? "translateY(0)" : "translateY(20px)",
-        transition: "all 0.6s cubic-bezier(0.43, 0.13, 0.23, 0.96)",
       }}
     >
       {title}

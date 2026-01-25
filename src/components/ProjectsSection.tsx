@@ -1,31 +1,37 @@
 import React from "react";
-import { Box, Typography, Grid } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import ProjectCard from "./ProjectCard";
 import projectsData from "../data/projects.json";
-import { useScrollAnimation } from "../hooks/useScrollAnimation";
+import { motion, useReducedMotion } from "framer-motion";
+import { fadeUp, stagger } from "../utils/motion";
 
 const ProjectsSection: React.FC = () => {
-  const { elementRef, isVisible } = useScrollAnimation({
-    threshold: 0.1,
-  });
+  const reduceMotion = useReducedMotion();
 
   return (
-    <Box ref={elementRef} data-section="projects">
+    <Box data-section="projects">
       <Typography
+        component={motion.h3}
         variant="h4"
+        initial={reduceMotion ? undefined : "hidden"}
+        whileInView={reduceMotion ? undefined : "visible"}
+        viewport={reduceMotion ? undefined : { once: true, amount: 0.3 }}
+        variants={reduceMotion ? undefined : fadeUp(0)}
         sx={{
           mb: 3,
           color: "text.primary",
           fontWeight: 600,
-          opacity: isVisible ? 1 : 0,
-          transform: isVisible ? "translateY(0)" : "translateY(20px)",
-          transition: "all 0.6s cubic-bezier(0.43, 0.13, 0.23, 0.96)",
         }}
       >
         Featured Projects
       </Typography>
 
       <Box
+        component={motion.div}
+        initial={reduceMotion ? undefined : "hidden"}
+        whileInView={reduceMotion ? undefined : "visible"}
+        viewport={reduceMotion ? undefined : { once: true, amount: 0.15 }}
+        variants={reduceMotion ? undefined : stagger}
         sx={{
           display: "flex",
           flexDirection: "column",
