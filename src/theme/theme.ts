@@ -108,7 +108,7 @@ export function getAppTheme(mode: ThemeMode) {
               outlineOffset: 3,
             },
           }),
-          contained: ({ theme }) => ({
+          contained: () => ({
             backgroundImage: `linear-gradient(135deg, ${neonOrange}, ${alpha(neonCyan, 0.9)})`,
             boxShadow: `0 16px 50px ${alpha(neonOrange, isDark ? 0.25 : 0.18)}`,
             "&:hover": {
