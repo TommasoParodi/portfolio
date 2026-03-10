@@ -39,12 +39,14 @@ const ProjectsSection: React.FC = () => {
       >
         {projectsData.projects.map((project, index) => (
           <ProjectCard
-            key={index}
+            key={project.slug}
             name={project.name}
+            slug={project.slug}
             description={project.description}
             github={project.github}
             deploy={project.deploy}
             languages={project.languages}
+            images={project.images}
             index={index}
             isLast={index === projectsData.projects.length - 1}
           />

@@ -1,32 +1,37 @@
 import React from "react";
-import { Box, Typography, Link } from "@mui/material";
-import { GitHub, OpenInNew } from "@mui/icons-material";
+import { Box, Typography, Link, Button } from "@mui/material";
+import { GitHub, OpenInNew, ArrowForward } from "@mui/icons-material";
 import { alpha, useTheme } from "@mui/material/styles";
 import { motion, useReducedMotion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import { fadeUp } from "../utils/motion";
 
 interface ProjectCardProps {
   name: string;
+  slug: string;
   description: string;
   github: string | null;
   deploy: string | null;
   languages: string[];
+  images?: string[];
   index: number;
   isLast?: boolean;
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
   name,
+  slug,
   description,
   github,
   deploy,
   languages,
+  images = [],
   index,
   isLast = false,
 }) => {
   const theme = useTheme();
   const reduceMotion = useReducedMotion();
-
+  const navigate = useNavigate();
   return (
     <Box
       component={motion.div}
@@ -93,111 +98,137 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         className="timeline-content"
         sx={{
           flex: 1,
+          display: "flex",
+          flexDirection: { xs: "column", md: "row" },
+          gap: 2,
+          alignItems: { md: "stretch" },
           transition: "transform 0.4s cubic-bezier(0.43, 0.13, 0.23, 0.96)",
           willChange: "transform",
         }}
       >
-        <Box
-          sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-            alignItems: { xs: "flex-start", sm: "center" },
-            gap: 1,
-            mb: 1.5,
-          }}
-        >
-          <Box>
-            <Typography
-              className="project-title"
-              variant="subtitle1"
-              sx={{
-                fontWeight: 600,
-                color: alpha(theme.palette.text.primary, 0.78),
-                transition: "color 0.4s cubic-bezier(0.43, 0.13, 0.23, 0.96)",
-              }}
-            >
-              {name}
-            </Typography>
-            <Box
-              className="project-links"
-              sx={{
-                display: "flex",
-                gap: 1,
-                mt: 0.5,
-                opacity: 0.7,
-                transition: "opacity 0.4s cubic-bezier(0.43, 0.13, 0.23, 0.96)",
-              }}
-            >
-              {github && (
-                <Link
-                  href={github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  sx={{
-                    color: "text.secondary",
-                    transition: "color 0.3s ease",
-                    "&:hover": {
-                      color: "primary.main",
-                    },
-                  }}
-                >
-                  <GitHub fontSize="small" />
-                </Link>
-              )}
-              {deploy && (
-                <Link
-                  href={deploy}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  sx={{
-                    color: "text.secondary",
-                    transition: "color 0.3s ease",
-                    "&:hover": {
-                      color: "secondary.main",
-                    },
-                  }}
-                >
-                  <OpenInNew fontSize="small" />
-                </Link>
-              )}
-            </Box>
-          </Box>
-
+        <Box sx={{ flex: 1, minWidth: 0 }}>
           <Box
             sx={{
               display: "flex",
               flexWrap: "wrap",
-              gap: 0.5,
-              maxWidth: { xs: "100%", sm: "200px" },
+              justifyContent: "space-between",
+              alignItems: { xs: "flex-start", sm: "center" },
+              gap: 1,
+              mb: 1.5,
             }}
           >
-            {languages.map((lang, idx) => (
+            <Box>
               <Typography
-                key={idx}
-                variant="caption"
+                className="project-title"
+                variant="subtitle1"
                 sx={{
-                  color: alpha(theme.palette.text.primary, 0.55),
-                  fontSize: "0.7rem",
+                  fontWeight: 600,
+                  color: alpha(theme.palette.text.primary, 0.78),
+                  transition: "color 0.4s cubic-bezier(0.43, 0.13, 0.23, 0.96)",
                 }}
               >
-                {lang}
-                {idx < languages.length - 1 && " •"}
+                {name}
               </Typography>
-            ))}
-          </Box>
-        </Box>
+              <Box
+                className="project-links"
+                sx={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  alignItems: "center",
+                  gap: 2,
+                  mt: 0.5,
+                  opacity: 0.7,
+                  transition: "opacity 0.4s cubic-bezier(0.43, 0.13, 0.23, 0.96)",
+                }}
+              >
+                {github && (
+                  <Link
+                    href={github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    sx={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      color: "text.secondary",
+                      transition: "color 0.3s ease",
+                      "&:hover": { color: "primary.main" },
+                    }}
+                  >
+                    <GitHub fontSize="small" />
+                  </Link>
+                )}
+                {deploy && (
+                  <Link
+                    href={deploy}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    sx={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      color: "text.secondary",
+                      transition: "color 0.3s ease",
+                      "&:hover": { color: "secondary.main" },
+                    }}
+                  >
+                    <OpenInNew fontSize="small" />
+                  </Link>
+                )}
+                <Button
+                  variant="contained"
+                  size="small"
+                  onClick={() => navigate(`/progetti/${slug}`)}
+                  endIcon={<ArrowForward sx={{ fontSize: 16 }} />}
+                  sx={{
+                    textTransform: "none",
+                    fontWeight: 600,
+                    px: 1.5,
+                    py: 0.75,
+                    boxShadow: 1,
+                    "&:hover": {
+                      boxShadow: 2,
+                    },
+                  }}
+                >
+                  Scopri di più
+                </Button>
+              </Box>
+            </Box>
 
-        <Typography
-          variant="body2"
-          sx={{
-            color: alpha(theme.palette.text.primary, 0.72),
-            lineHeight: 1.8,
-            transition: "color 0.4s cubic-bezier(0.43, 0.13, 0.23, 0.96)",
-          }}
-        >
-          {description}
-        </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 0.5,
+                maxWidth: { xs: "100%", sm: "200px" },
+              }}
+            >
+              {languages.map((lang, idx) => (
+                <Typography
+                  key={idx}
+                  variant="caption"
+                  sx={{
+                    color: alpha(theme.palette.text.primary, 0.55),
+                    fontSize: "0.7rem",
+                  }}
+                >
+                  {lang}
+                  {idx < languages.length - 1 && " •"}
+                </Typography>
+              ))}
+            </Box>
+          </Box>
+
+          <Typography
+            variant="body2"
+            sx={{
+              color: alpha(theme.palette.text.primary, 0.72),
+              lineHeight: 1.8,
+              transition: "color 0.4s cubic-bezier(0.43, 0.13, 0.23, 0.96)",
+            }}
+          >
+            {description}
+          </Typography>
+        </Box>
       </Box>
     </Box>
   );
