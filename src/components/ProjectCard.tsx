@@ -25,7 +25,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   github,
   deploy,
   languages,
-  images = [],
   index,
   isLast = false,
 }) => {
