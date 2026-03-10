@@ -1,28 +1,11 @@
 {
   "projects": [
     {
-      "name": "E-Commerce Platform",
-      "description": "Piattaforma e-commerce completa con carrello, checkout e gestione ordini. Implementata con React e TypeScript, include integrazione pagamenti e dashboard amministrativa.",
-      "github": "https://github.com/TommasoParodi/ecommerce-platform",
-      "deploy": "https://ecommerce-demo.vercel.app",
-      "languages": ["React", "TypeScript", "Node.js", "MongoDB", "Express"]
-    },
-    {
-      "name": "AI Chatbot Assistant",
-      "description": "Assistente virtuale intelligente costruito con React e Langchain. Supporta conversazioni contestuali, integrazione con API esterne e interfaccia utente moderna.",
-      "github": "https://github.com/TommasoParodi/ai-chatbot",
-      "deploy": "https://ai-chatbot-demo.netlify.app",
-      "languages": ["React", "TypeScript", "LangchainJS", "OpenAI API", "Vite"]
-    },
-    {
-      "name": "Task Management App",
-      "description": "Applicazione per la gestione di progetti e task con board Kanban, drag & drop, e collaborazione in tempo reale. Realizzata con Next.js e WebSocket.",
-      "github": "https://github.com/TommasoParodi/task-manager",
-      "deploy": null,
-      "languages": ["Next.js", "TypeScript", "WebSocket", "PostgreSQL", "Prisma"]
+      "name": "Cenette",
+      "description": "Web app privata per gruppi che vogliono ricordare e valutare cene, uscite e serate. Login con Google, gruppi con codice invito, eventi (cene a casa o fuori), recensioni con voti e foto. Dati visibili solo ai membri del gruppo. Auth, database, RLS e storage gestiti con Supabase; deploy su Vercel con supporto PWA.",
+      "github": "https://github.com/TommasoParodi/cenette",
+      "deploy": "https://cenette.vercel.app/",
+      "languages": ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase", "Vercel", "Serwist"]
     }
   ]
 }
-
-
-

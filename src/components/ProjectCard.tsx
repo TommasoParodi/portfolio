@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Typography, Link } from "@mui/material";
-import { GitHub, Launch } from "@mui/icons-material";
+import { GitHub, OpenInNew } from "@mui/icons-material";
 import { alpha, useTheme } from "@mui/material/styles";
 import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp } from "../utils/motion";
@@ -8,7 +8,7 @@ import { fadeUp } from "../utils/motion";
 interface ProjectCardProps {
   name: string;
   description: string;
-  github: string;
+  github: string | null;
   deploy: string | null;
   languages: string[];
   index: number;
@@ -129,20 +129,22 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                 transition: "opacity 0.4s cubic-bezier(0.43, 0.13, 0.23, 0.96)",
               }}
             >
-              <Link
-                href={github}
-                target="_blank"
-                rel="noopener noreferrer"
-                sx={{
-                  color: "text.secondary",
-                  transition: "color 0.3s ease",
-                  "&:hover": {
-                    color: "primary.main",
-                  },
-                }}
-              >
-                <GitHub fontSize="small" />
-              </Link>
+              {github && (
+                <Link
+                  href={github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    color: "text.secondary",
+                    transition: "color 0.3s ease",
+                    "&:hover": {
+                      color: "primary.main",
+                    },
+                  }}
+                >
+                  <GitHub fontSize="small" />
+                </Link>
+              )}
               {deploy && (
                 <Link
                   href={deploy}
@@ -156,7 +158,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                     },
                   }}
                 >
-                  <Launch fontSize="small" />
+                  <OpenInNew fontSize="small" />
                 </Link>
               )}
             </Box>
