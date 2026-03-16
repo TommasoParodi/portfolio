@@ -118,7 +118,7 @@ const ProjectDetailPage: React.FC = () => {
                 "&:hover": { color: "secondary.main" },
               }}
             >
-              <OpenInNew fontSize="small" /> Vai all’app
+              <OpenInNew fontSize="small" /> Go to the app
             </Link>
           )}
         </Box>

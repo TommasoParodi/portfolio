@@ -206,10 +206,16 @@ const Hero: React.FC = () => {
         animate={
           reduceMotion || isScrolled
             ? undefined
-            : { y: [0, 10, 0], x: "-50%" }
+            : { y: [0, 8, 0] }
         }
         transition={
-          reduceMotion || isScrolled ? undefined : { duration: 2.0, repeat: Infinity, ease: "easeInOut" }
+          reduceMotion || isScrolled
+            ? undefined
+            : {
+                duration: 1.8,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }
         }
       >
         <Box

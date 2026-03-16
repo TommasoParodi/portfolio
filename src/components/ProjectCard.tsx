@@ -188,7 +188,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                     },
                   }}
                 >
-                  Scopri di più
+                  Learn more
                 </Button>
               </Box>
             </Box>

@@ -3,7 +3,7 @@
     {
       "name": "Cenette",
       "slug": "cenette",
-      "description": "Web app privata per gruppi che vogliono ricordare e valutare cene, uscite e serate. Login con Google, gruppi con codice invito, eventi (cene a casa o fuori), recensioni con voti e foto. Dati visibili solo ai membri del gruppo. Auth, database, RLS e storage gestiti con Supabase; deploy su Vercel con supporto PWA.",
+      "description": "Private web app for groups who want to remember and rate dinners, outings, and nights out. Google login, invite-code groups, events (dinners at home or out), reviews with ratings and photos. Data is visible only to group members. Auth, database, RLS, and storage handled with Supabase; deployed to Vercel with PWA support.",
       "github": "https://github.com/TommasoParodi/cenette",
       "deploy": "https://cenette.vercel.app/",
       "languages": ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase", "Vercel", "Serwist"],
